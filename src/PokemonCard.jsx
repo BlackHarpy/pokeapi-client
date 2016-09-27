@@ -89,7 +89,6 @@ const PokemonCard = React.createClass({
 
     render: function() {
         if (Object.keys(this.props.pokemonData).length > 0) {
-            console.log(this.props.pokemonData.species.url);
             return (
                 <Card>
                     <CardMedia style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>

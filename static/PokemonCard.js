@@ -123,7 +123,6 @@ var PokemonCard = _react2.default.createClass({
 
     render: function render() {
         if (Object.keys(this.props.pokemonData).length > 0) {
-            console.log(this.props.pokemonData.species.url);
             return _react2.default.createElement(
                 _Card.Card,
                 null,

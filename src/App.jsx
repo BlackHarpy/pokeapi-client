@@ -29,7 +29,6 @@ const App = React.createClass({
     },
 
     render: function() {
-        console.log(this.state);
         if (!this.state.loading) {
             if ( Object.keys(this.state.pokemonData).length > 0) {
                 return (
@@ -47,7 +46,10 @@ const App = React.createClass({
                         <div>
                             <MainBar sendPokemon={this.getPokemon}/>
                             <Paper zDepth={0}>
-                                <h1>Test</h1>
+                                <div style={{display: 'flex', justifyContent: 'center',  alignItems: 'center'}}>
+
+                                <h2>Click on the Menu button to open Pokémon List</h2>
+                                    </div>
                             </Paper>
                         </div>
 

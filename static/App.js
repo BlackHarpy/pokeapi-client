@@ -57,7 +57,6 @@ var App = _react2.default.createClass({
     },
 
     render: function render() {
-        console.log(this.state);
         if (!this.state.loading) {
             if (Object.keys(this.state.pokemonData).length > 0) {
                 return _react2.default.createElement(
@@ -82,9 +81,13 @@ var App = _react2.default.createClass({
                             _Paper2.default,
                             { zDepth: 0 },
                             _react2.default.createElement(
-                                'h1',
-                                null,
-                                'Test'
+                                'div',
+                                { style: { display: 'flex', justifyContent: 'center', alignItems: 'center' } },
+                                _react2.default.createElement(
+                                    'h2',
+                                    null,
+                                    'Click on the Menu button to open Pokémon List'
+                                )
                             )
                         )
                     )

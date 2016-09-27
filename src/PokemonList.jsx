@@ -5,6 +5,8 @@ import $ from 'jquery';
 
 import Drawer from 'material-ui/Drawer';
 import PokemonListItem from './PokemonListItem';
+import MDSpinner from "react-md-spinner";
+
 
 const PokemonList = React.createClass({
     componentDidMount: function () {
@@ -57,16 +59,29 @@ const PokemonList = React.createClass({
         }
     },
     render: function() {
-        return (
-            <div ref="list" onScroll={this.addPokemons}>
+        if ( this.state.pokemonList.length > 0) {
+            return (
+                <div ref="list" onScroll={this.addPokemons}>
+                    <Drawer ref="drawer" docked={false}
+                            open={this.state.open}
+                            onRequestChange={(open) => this.setState({open})}>
+                        {this.state.pokemonList}
+                    </Drawer>
+                </div>
+
+            );
+        } else {
+            return (<div>
                 <Drawer ref="drawer" docked={false}
                         open={this.state.open}
                         onRequestChange={(open) => this.setState({open})}>
-                        {this.state.pokemonList}
+                    <div style={{display: 'flex', justifyContent: 'center',  alignItems: 'center'}}>
+                        <MDSpinner size={100}/>
+                    </div>
                 </Drawer>
-            </div>
+            </div>);
+        }
 
-        );
     }
 });
 

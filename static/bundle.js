@@ -51711,7 +51711,6 @@ var App = _react2.default.createClass({
     },
 
     render: function render() {
-        console.log(this.state);
         if (!this.state.loading) {
             if (Object.keys(this.state.pokemonData).length > 0) {
                 return _react2.default.createElement(
@@ -51736,9 +51735,13 @@ var App = _react2.default.createClass({
                             _Paper2.default,
                             { zDepth: 0 },
                             _react2.default.createElement(
-                                'h1',
-                                null,
-                                'Test'
+                                'div',
+                                { style: { display: 'flex', justifyContent: 'center', alignItems: 'center' } },
+                                _react2.default.createElement(
+                                    'h2',
+                                    null,
+                                    'Click on the Menu button to open Pokémon List'
+                                )
                             )
                         )
                     )
@@ -51938,7 +51941,6 @@ var PokemonCard = _react2.default.createClass({
 
     render: function render() {
         if (Object.keys(this.props.pokemonData).length > 0) {
-            console.log(this.props.pokemonData.species.url);
             return _react2.default.createElement(
                 _Card.Card,
                 null,
@@ -52001,9 +52003,11 @@ var _PokemonListItem = require('./PokemonListItem');
 
 var _PokemonListItem2 = _interopRequireDefault(_PokemonListItem);
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _reactMdSpinner = require('react-md-spinner');
 
-/*jshint esversion: 6 */
+var _reactMdSpinner2 = _interopRequireDefault(_reactMdSpinner);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var PokemonList = _react2.default.createClass({
     displayName: 'PokemonList',
@@ -52060,24 +52064,44 @@ var PokemonList = _react2.default.createClass({
     render: function render() {
         var _this = this;
 
-        return _react2.default.createElement(
-            'div',
-            { ref: 'list', onScroll: this.addPokemons },
-            _react2.default.createElement(
-                _Drawer2.default,
-                { ref: 'drawer', docked: false,
-                    open: this.state.open,
-                    onRequestChange: function onRequestChange(open) {
-                        return _this.setState({ open: open });
-                    } },
-                this.state.pokemonList
-            )
-        );
+        if (this.state.pokemonList.length > 0) {
+            return _react2.default.createElement(
+                'div',
+                { ref: 'list', onScroll: this.addPokemons },
+                _react2.default.createElement(
+                    _Drawer2.default,
+                    { ref: 'drawer', docked: false,
+                        open: this.state.open,
+                        onRequestChange: function onRequestChange(open) {
+                            return _this.setState({ open: open });
+                        } },
+                    this.state.pokemonList
+                )
+            );
+        } else {
+            return _react2.default.createElement(
+                'div',
+                null,
+                _react2.default.createElement(
+                    _Drawer2.default,
+                    { ref: 'drawer', docked: false,
+                        open: this.state.open,
+                        onRequestChange: function onRequestChange(open) {
+                            return _this.setState({ open: open });
+                        } },
+                    _react2.default.createElement(
+                        'div',
+                        { style: { display: 'flex', justifyContent: 'center', alignItems: 'center' } },
+                        _react2.default.createElement(_reactMdSpinner2.default, { size: 100 })
+                    )
+                )
+            );
+        }
     }
-});
+}); /*jshint esversion: 6 */
 
 exports.default = PokemonList;
-},{"./PokemonListItem":444,"jquery":57,"material-ui/Drawer":198,"react":426}],444:[function(require,module,exports){
+},{"./PokemonListItem":444,"jquery":57,"material-ui/Drawer":198,"react":426,"react-md-spinner":272}],444:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
