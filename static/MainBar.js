@@ -38,7 +38,7 @@ var AppBarExampleIcon = _react2.default.createClass({
         return _react2.default.createElement(
             'div',
             null,
-            _react2.default.createElement(_AppBar2.default, { title: 'Pokedex', onLeftIconButtonTouchTap: this.openDrawer }),
+            _react2.default.createElement(_AppBar2.default, { title: 'Pokédex', onLeftIconButtonTouchTap: this.openDrawer }),
             _react2.default.createElement(_PokemonList2.default, { open: this.state.openDrawer, selectUrl: this.selectUrl })
         );
     }
