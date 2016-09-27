@@ -21,14 +21,14 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var PokemonListItem = _react2.default.createClass({
     displayName: 'PokemonListItem',
 
-    selectPokemon: function selectPokemon() {
-        // this.props.getPokemon(this.props.url);
+    handleTapEvent: function handleTapEvent() {
+        this.props.tapEvent(this.props.url);
     },
 
     render: function render() {
         return _react2.default.createElement(
             _MenuItem2.default,
-            { onTouchTap: this.selectPokemon },
+            { onTouchTap: this.handleTapEvent },
             this.props.name.charAt(0).toUpperCase() + this.props.name.slice(1)
         );
     }
