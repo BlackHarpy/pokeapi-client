@@ -21,7 +21,7 @@ const AppBarExampleIcon = React.createClass({
     render: function() {
         return (
             <div>
-                <AppBar title="Pokedex" onLeftIconButtonTouchTap={this.openDrawer}/>
+                <AppBar title="Pokédex" onLeftIconButtonTouchTap={this.openDrawer}/>
                 <PokemonList open={this.state.openDrawer} selectUrl={this.selectUrl}/>
             </div>
         );
