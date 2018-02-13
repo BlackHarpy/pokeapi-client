@@ -1,8 +1,24 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import {App} from './App.jsx';
+import React from 'react'
+import { render } from 'react-dom'
+import { Provider } from 'react-redux'
+import { createStore, compose, applyMiddleware } from 'redux'
+import thunk from 'redux-thunk'
+import pokemonReducers from './reducers'
+import App from './components/App'
 
-ReactDOM.render(
-  <App />,
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+
+let store = createStore(pokemonReducers,
+  compose(applyMiddleware(thunk), window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()));
+
+console.log(store.getState());
+
+render(
+  <MuiThemeProvider>
+
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </MuiThemeProvider>,
   document.getElementById('app')
-);
+)

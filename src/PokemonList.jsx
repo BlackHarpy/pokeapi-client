@@ -32,12 +32,12 @@ export default class PokemonList extends React.Component {
     }
 
     getPokemonList(url) {
-        //const event = this.closeDrawer;
+        const event = this.closeDrawer;
         APIService.getPokemonList(url).then(data => {
             let i = this.state.pokemonList.length;
             let page = data.results.map(function(record) {
                 i++;
-                return (<PokemonListItem  key={i} name={record.name} url={record.url}/>);
+                return (<PokemonListItem  key={i} name={record.name} url={record.url} onClick={event}/>);
             })
             let output = this.state.pokemonList.concat(page);
             this.setState({pokemonList: output});

@@ -8,10 +8,7 @@ const makeRequest = async (url, method = {}) => {
 };
 
 export class APIService {
-  static getNextPage(url) {
-    return makeRequest(url, 'GET');
 
-  }
   static getPokemonList(url) {
     return url ? makeRequest(url, 'GET') : makeRequest('https://pokeapi.co/api/v2/pokemon/', 'GET');
   }
