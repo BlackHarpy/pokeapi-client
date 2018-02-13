@@ -5,16 +5,14 @@ import $ from 'jquery';
 
 import MenuItem from 'material-ui/MenuItem';
 
-const PokemonListItem = React.createClass({
-    handleTapEvent: function() {
+export default class PokemonListItem extends React.Component {
+    handleTapEvent() {
         this.props.tapEvent(this.props.url);
-    },
+    }
 
-    render: function() {
+    render() {
         return (
             <MenuItem onTouchTap={this.handleTapEvent}>{this.props.name.charAt(0).toUpperCase() + this.props.name.slice(1)}</MenuItem>
         );
     }
-});
-
-export default PokemonListItem;
+}

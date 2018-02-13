@@ -9,17 +9,17 @@ import {Card, CardMedia, CardTitle, CardActions, CardText} from 'material-ui/Car
 import {Table, TableBody, TableRow, TableRowColumn} from 'material-ui/Table';
 import FlatButton from 'material-ui/FlatButton';
 
-const StatRow = React.createClass({
-    getInitialState: function() {
+export default class StatRow extends React.Component {
+    getInitialState() {
         return {name: ''};
-    },
-    componentDidMount: function(){
+    }
+    componentDidMount() {
         $.get(this.props.nameUrl, function(data) {
             this.setState({name: data.names[5].name});
 
         }.bind(this));
-    },
-    render: function() {
+    }
+    render() {
         if (this.state.name) {
 
             return (
@@ -37,19 +37,22 @@ const StatRow = React.createClass({
             );
         }
     }
-})
+}
 
-const SpeciesData = React.createClass({
-    getInitialState: function() {
-        return {speciesData: {}};
-    },
-    componentDidMount: function(){
+class SpeciesData extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            speciesData: {}
+        };
+    }
+    componentDidMount() {
         this.setState({speciesData: {}});
         $.get(this.props.dataUrl, function(data) {
             this.setState({speciesData: data});
         }.bind(this));
-    },
-    render: function() {
+    }
+    render () {
         if (Object.keys(this.state.speciesData).length > 0) {
             let formattedTitle = this.state.speciesData.id + ' - ' + this.state.speciesData.names[0].name;
             return (
@@ -68,26 +71,26 @@ const SpeciesData = React.createClass({
         }
 
     }
-});
+};
 
-const PokemonCard = React.createClass({
-    generateStatsRows: function() {
+class PokemonCard extends React.Component {
+    generateStatsRows() {
         return this.props.pokemonData.stats.map(function(value, key) {
             return (
                 <StatRow key={key} nameUrl={value.stat.url} value={value.base_stat}/>
             )
         })
-    },
+    }
 
-    renderTypes: function() {
+    renderTypes() {
         return this.props.pokemonData.types.map(function(value, key) {
             return (
                 <FlatButton key={key} label={value.type.name.toUpperCase()} />
             )
         })
-    },
+    }
 
-    render: function() {
+    render() {
         if (Object.keys(this.props.pokemonData).length > 0) {
             return (
                 <Card>
@@ -117,6 +120,4 @@ const PokemonCard = React.createClass({
         }
 
     }
-});
-
-export default PokemonCard;
+};

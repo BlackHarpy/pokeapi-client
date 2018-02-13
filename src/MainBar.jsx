@@ -3,29 +3,31 @@
 import React from 'react';
 
 import AppBar from 'material-ui/AppBar';
-import PokemonList from './PokemonList';
+import PokemonList from './PokemonList.jsx';
 
-const AppBarExampleIcon = React.createClass({
-
-    getInitialState: function() {
-        return {openDrawer: false, pokemonList: []};
-    },
-    selectUrl: function(url) {
+export default class AppBarExampleIcon extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            openDrawer: false, 
+            pokemonList: []
+        };
+    }
+    selectUrl (url) {
         this.props.sendPokemon(url);
         this.setState({openDrawer: false});
-    },
+    }
  
     openDrawer() {
         this.setState({openDrawer: true});
-    },
-    render: function() {
+    }
+    render() {
         return (
             <div>
-                <AppBar title="Pokédex" onLeftIconButtonTouchTap={this.openDrawer}/>
+                <AppBar title="Pokédex" onLeftIconButtonClick={this.openDrawer.bind(this)}/>
                 <PokemonList open={this.state.openDrawer} selectUrl={this.selectUrl}/>
             </div>
         );
     }
-});
+};
 
-export default AppBarExampleIcon;
