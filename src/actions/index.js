@@ -51,9 +51,9 @@ export function fetchNext(url) {
 export function fetchPokemonInfo(url) {
   return dispatch => {
     dispatch(requestPokemonInfo())
-    // return APIService.getPokemonList(url).then(data => {
-    //   dispatch(recieveNext(data));
-    // })
+    return APIService.getPokemonInfo(url).then(data => {
+      dispatch(recievePokemonInfo(data));
+    })
   }
 
 }

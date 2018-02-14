@@ -30,7 +30,6 @@ const Container = ({list, fetchPokemonInfo}) => {
       return <MenuItem key={index} onClick={e => { e.preventDefault(); handleClick(pokemon.url)}}>
       {pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}
       </MenuItem>
-      
     })}
   </div>)
 }
