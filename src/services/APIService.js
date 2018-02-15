@@ -11,11 +11,14 @@ function buildPokemonInfoObject(baseInfo, speciesInfo) {
   const enFlavorText = speciesInfo.flavor_text_entries.find(entry => {return entry.language.name === 'en'}).flavor_text;
   return {
     id: baseInfo.id,
-    name: baseInfo.name,
+    name: baseInfo.name[0].toUpperCase() + baseInfo.name.slice(1),
     genera: speciesInfo.genera[2].genus,
     height: baseInfo.height,
     weight: baseInfo.weight,
-    sprite: baseInfo.sprites.front_default,
+    sprite: {
+      front: baseInfo.sprites.front_default,
+      back: baseInfo.sprites.back_default
+    },
     flavorText: enFlavorText,
     stats: {
       SPEED: baseInfo.stats[0].base_stat,
