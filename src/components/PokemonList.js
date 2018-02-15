@@ -20,7 +20,6 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-
 const Container = ({list, fetchPokemonInfo}) => {
   const handleClick = (url) => {
     fetchPokemonInfo(url)
