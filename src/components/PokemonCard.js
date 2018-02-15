@@ -35,6 +35,12 @@ const cardActionsStyle = {
     textAlign: 'center'
   }
 }
+
+const cardTextStyle = {
+  general: {
+    fontSize: 18
+  }
+}
 export const PokemonCard = ({data}) => (
   <Card>
     <CardHeader
@@ -52,13 +58,10 @@ export const PokemonCard = ({data}) => (
       </div>
     </CardMedia>
     <CardActions style={cardActionsStyle.general}>
-      <TypeBox name="water" />
+      {data.types.map(name =>  <TypeBox name={name} />)}
     </CardActions>
-    <CardText>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-      Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.
-      Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque.
-      Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.
+    <CardText style={cardTextStyle.general}>
+      {data.flavorText}
     </CardText>
   </Card>
 );
