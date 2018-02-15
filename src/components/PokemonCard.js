@@ -65,7 +65,7 @@ export const PokemonCard = ({data}) => (
       </div>
     </CardMedia>
     <CardText style={cardTextStyle.size}>
-      HT : {(data.height / 10).toFixed(2)}m - WT : {(data.weight / 10).toFixed(1)}kg
+      HT : {(data.height / 10).toFixed(1)}m - WT : {(data.weight / 10).toFixed(1)}kg
     </CardText>
     <CardActions style={cardActionsStyle.general}>
       {data.types.map((name,i) =>  <TypeBox key={i} name={name} />)}
