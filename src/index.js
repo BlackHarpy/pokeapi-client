@@ -18,7 +18,6 @@ store
   .then(() => console.log(store.getState()))
 render(
   <MuiThemeProvider>
-
     <Provider store={store}>
       <App />
     </Provider>
