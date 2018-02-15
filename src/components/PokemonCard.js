@@ -1,6 +1,9 @@
 import React from 'react';
 import {Card, CardActions, CardMedia, CardHeader, CardText} from 'material-ui/Card';
+import Divider from 'material-ui/Divider';
+
 import {TypeBox} from './TypeBox'
+import {StatsBox} from './StatsBox'
 
 const cardHeaderStyle = {
   general: {
@@ -57,11 +60,16 @@ export const PokemonCard = ({data}) => (
       <img src={data.sprite.back} style={cardMediaStyle.img} /> 
       </div>
     </CardMedia>
+    <CardText>
+      HT : {(data.height / 10).toFixed(2)}m - WT : {(data.weight / 10).toFixed(1)}kg
+    </CardText>
     <CardActions style={cardActionsStyle.general}>
-      {data.types.map(name =>  <TypeBox name={name} />)}
+      {data.types.map((name,i) =>  <TypeBox key={i} name={name} />)}
     </CardActions>
     <CardText style={cardTextStyle.general}>
       {data.flavorText}
     </CardText>
+    <Divider />    
+    <StatsBox stats={data.stats} />  
   </Card>
 );
