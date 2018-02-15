@@ -47,7 +47,7 @@ const Container = ({ openDrawer, closeDrawer, drawerOpened, pokemonList, fetchin
     const scrollTop = e.nativeEvent.target.scrollTop;
     const max = e.nativeEvent.target.scrollHeight - e.nativeEvent.target.clientHeight;
     const percScrolling = (scrollTop/max) * 100;
-    if (percScrolling >= 100) {
+    if (percScrolling >= 100 && !fetching) {
       fetchNext(next);
     }
   }

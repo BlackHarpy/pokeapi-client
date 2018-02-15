@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux'
 
 import Paper from 'material-ui/Paper';
-import MDSpinner from "react-md-spinner";
 
 import {DescriptionCard} from './DescriptionCard'
 import {PokemonCard} from './PokemonCard'
