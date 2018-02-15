@@ -42,6 +42,10 @@ const cardActionsStyle = {
 const cardTextStyle = {
   general: {
     fontSize: 18
+  },
+  size: {
+    fontSize: 15,    
+    color: '#9e9e9e'
   }
 }
 export const PokemonCard = ({data}) => (
@@ -60,7 +64,7 @@ export const PokemonCard = ({data}) => (
       <img src={data.sprite.back} style={cardMediaStyle.img} /> 
       </div>
     </CardMedia>
-    <CardText>
+    <CardText style={cardTextStyle.size}>
       HT : {(data.height / 10).toFixed(2)}m - WT : {(data.weight / 10).toFixed(1)}kg
     </CardText>
     <CardActions style={cardActionsStyle.general}>
