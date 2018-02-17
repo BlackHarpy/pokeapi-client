@@ -7,7 +7,16 @@ const url = require('url')
 
 let mainWindow
 
+const { default: installExtension, REDUX_DEVTOOLS } = require('electron-devtools-installer');
+
+function installDevExtensions () {
+  installExtension(REDUX_DEVTOOLS)
+  .then((name) => console.log(`Added Extension:  ${name}`))
+  .catch((err) => console.log('An error occurred: ', err));
+}
+
 function createWindow () {
+  installDevExtensions();
   mainWindow = new BrowserWindow({width: 800, height: 600})
 
   mainWindow.loadURL(url.format({
