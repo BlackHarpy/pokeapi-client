@@ -28,7 +28,8 @@ function buildPokemonInfoObject(baseInfo, speciesInfo) {
       ATTACK: baseInfo.stats[4].base_stat,
       HP: baseInfo.stats[5].base_stat
     },
-    types: baseInfo.types.map(record => { return record.type.name})
+    types: baseInfo.types.map(record => { return record.type.name}),
+    bulbapediaArticle: `https://bulbapedia.bulbagarden.net/wiki/${baseInfo.name}_(Pokemon)`
   }
 }
 

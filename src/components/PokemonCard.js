@@ -4,6 +4,8 @@ import Divider from 'material-ui/Divider';
 
 import {TypeBox} from './TypeBox'
 import {StatsBox} from './StatsBox'
+import {CardIconButton} from './CardIconButton'
+
 
 const cardHeaderStyle = {
   general: {
@@ -48,6 +50,7 @@ const cardTextStyle = {
     color: '#9e9e9e'
   }
 }
+
 export const PokemonCard = ({data}) => (
   <Card>
     <CardHeader
@@ -57,7 +60,11 @@ export const PokemonCard = ({data}) => (
       textStyle={cardHeaderStyle.text}
       titleStyle={cardHeaderStyle.title}
       subtitleStyle={cardHeaderStyle.subtitle}
-    />
+    > 
+    <div style={{float: 'right'}}>
+    {<CardIconButton link={data.bulbapediaArticle} />}
+    </div>
+    </CardHeader>
     <CardMedia mediaStyle={cardMediaStyle.general} style={cardMediaStyle.images}>
       <div>
        <img src={data.sprite.front} style={cardMediaStyle.img} />

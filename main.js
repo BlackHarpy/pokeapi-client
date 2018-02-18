@@ -17,7 +17,7 @@ function installDevExtensions () {
 
 function createWindow () {
   installDevExtensions();
-  mainWindow = new BrowserWindow({width: 800, height: 600})
+  mainWindow = new BrowserWindow()
 
   mainWindow.loadURL(url.format({
     pathname: path.join(__dirname, 'index.html'),
