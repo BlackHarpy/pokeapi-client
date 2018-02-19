@@ -10,6 +10,7 @@ describe('reducers', () => {
   }
 
   const initialState = {
+    userAgent: '',
     drawerOpened: false,
     fetching: false,
     pokemonList: [],

@@ -51,7 +51,28 @@ const cardTextStyle = {
   }
 }
 
-export const PokemonCard = ({data}) => (
+function openBulbapediaArticle(link) {
+  console.log('hi bulbapedia')
+}
+
+function buildCardIconButton(link, usingElectron) {
+  const buttonConfig = {
+    width: 40,
+    height: 40,
+    tooltipText: 'Bulbapedia Article',
+    imageSrc: './public/assets/60px-Bulbapedia_bulb.png'
+  }
+  return (
+    <CardIconButton 
+    link={link} 
+    buttonConfig={buttonConfig}
+    electronConfig={usingElectron ? { onClick: openBulbapediaArticle } : undefined}
+    />
+  )
+
+}
+
+export const PokemonCard = ({data, usingElectron}) => (
   <Card>
     <CardHeader
       title={`${data.id} - ${data.name}`}
@@ -61,8 +82,8 @@ export const PokemonCard = ({data}) => (
       titleStyle={cardHeaderStyle.title}
       subtitleStyle={cardHeaderStyle.subtitle}
     > 
-    <div style={{float: 'right'}}>
-    {<CardIconButton link={data.bulbapediaArticle} />}
+    <div style={{ float: 'right' }}>
+    { buildCardIconButton(data.bulbapediaArticle, usingElectron) }
     </div>
     </CardHeader>
     <CardMedia mediaStyle={cardMediaStyle.general} style={cardMediaStyle.images}>

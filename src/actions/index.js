@@ -1,5 +1,12 @@
 import {APIService} from '../services/APIService'
 
+export const saveElectronValue = (usingElectron) => {
+  return {
+    type: 'SAVE_ELECTRON_VALUE',
+    usingElectron
+  }
+
+}
 export const openDrawer = () => {
   return {
     type: 'OPEN_DRAWER',

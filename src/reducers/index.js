@@ -1,4 +1,5 @@
 const initialState = {
+  usingElectron: false,
   drawerOpened: false,
   fetching: false,
   pokemonList: [],
@@ -10,6 +11,8 @@ const initialState = {
 
 const pokemonReducers = (state = initialState, action) => {
   switch(action.type) {
+    case 'SAVE_ELECTRON_VALUE':
+      return {...state, usingElectron: action.usingElectron}
     case 'OPEN_DRAWER':
       return {...state, drawerOpened: true}
     case 'CLOSE_DRAWER':

@@ -5,6 +5,7 @@ import Paper from 'material-ui/Paper';
 
 import {DescriptionCard} from './DescriptionCard'
 import {PokemonCard} from './PokemonCard'
+import {BulbapediaSection} from './BulbapediaSection'
 
 const  pokedexImageUrl = 'https://data.whicdn.com/images/71286714/large.gif';
 const waitingImageUrl = 'https://78.media.tumblr.com/9e9c3f70954ac563e568e0f4001e481a/tumblr_nn4rtmvYmW1r9m88fo1_500.gif';
@@ -19,6 +20,7 @@ const style = {
 
 function mapStateToProps(state) {
   return {
+    usingElectron: state.usingElectron,
     pokemonData: state.selectedPokemon,
     fetchingPokemon: state.fetchingPokemon
   }
@@ -40,31 +42,32 @@ function getStartCard() {
   )
 }
 
-function getPokemonCard(pokemonData) {
-  return <PokemonCard data={pokemonData} />
+function getPokemonCard(pokemonData, usingElectron) {
+  return <PokemonCard data={pokemonData} usingElectron={usingElectron} />
 }
 
-function getCard(fetchingPokemon, pokemonData) {
+function getCard(fetchingPokemon, pokemonData, usingElectron) {
   if (fetchingPokemon) {
     return getSpinner();
   }
   if (!pokemonData.name) {
     return getStartCard();
   }
-  return getPokemonCard(pokemonData);
+  return getPokemonCard(pokemonData, usingElectron);
 }
 
-function buildContent (fetchingPokemon,pokemonData) {
+function buildContent (fetchingPokemon,pokemonData, usingElectron) {
   return  (
   <div  style={{textAlign :'center'}}>
     <Paper style={style} zDepth={2}> 
-     {getCard(fetchingPokemon, pokemonData)}
+     {getCard(fetchingPokemon, pokemonData, usingElectron)}
     </Paper>
   </div>)
 }
-const Container = ({fetchingPokemon, pokemonData}) => {
+const Container = ({fetchingPokemon, pokemonData, usingElectron}) => {
   return (<div>
-    {buildContent(fetchingPokemon, pokemonData)}
+    {buildContent(fetchingPokemon, pokemonData, usingElectron)}
+    {/* <BulbapediaSection /> */}
   </div>);
 };
 
