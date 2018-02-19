@@ -10,6 +10,14 @@ const mockStore = configureMockStore(middlewares)
 
 describe('actions', () => {
 
+    it('should create an action to save Electron value', () => {
+        const expectedAction = {
+            type: 'SAVE_ELECTRON_VALUE',
+            usingElectron: true
+        };
+        expect(actions.saveElectronValue(true)).toEqual(expectedAction)
+    });
+
     it('should create an action to open Drawer', () => {
         const expectedAction = {
             type: 'OPEN_DRAWER'

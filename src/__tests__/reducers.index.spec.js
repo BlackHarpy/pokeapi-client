@@ -10,7 +10,7 @@ describe('reducers', () => {
   }
 
   const initialState = {
-    userAgent: '',
+    usingElectron: false,
     drawerOpened: false,
     fetching: false,
     pokemonList: [],
@@ -25,10 +25,29 @@ describe('reducers', () => {
   });
 
   let action = {
-    type: 'OPEN_DRAWER'
+    type: 'SAVE_ELECTRON_VALUE',
+    usingElectron: true
   };
 
   let expected = {
+    usingElectron: true,    
+    drawerOpened: false,
+    fetching: false,
+    pokemonList: [],
+    selectedPokemon: {},
+    next: 'https://pokeapi.co/api/v2/pokemon/',
+    fetchingPokemon: false,
+    selectedPokemon: {}
+  }
+
+  testReducer('SAVE_ELECTRON_VALUE', action, expected);
+
+  action = {
+    type: 'OPEN_DRAWER'
+  };
+
+  expected = {
+    usingElectron: false,    
     drawerOpened: true,
     fetching: false,
     pokemonList: [],
@@ -45,6 +64,7 @@ describe('reducers', () => {
   };
 
   expected = {
+    usingElectron: false,    
     drawerOpened: false,
     fetching: false,
     pokemonList: [],
@@ -61,6 +81,7 @@ describe('reducers', () => {
   };
 
   expected = {
+    usingElectron: false,    
     drawerOpened: false,
     fetching: true,
     pokemonList: [],
@@ -81,6 +102,7 @@ describe('reducers', () => {
   };
 
   expected = {
+    usingElectron: false,    
     drawerOpened: false,
     fetching: false,
     pokemonList: [{
@@ -100,6 +122,7 @@ describe('reducers', () => {
   };
 
   expected = {
+    usingElectron: false,    
     drawerOpened: false,
     fetching: false,
     pokemonList: [],
@@ -119,6 +142,7 @@ describe('reducers', () => {
   };
 
   expected = {
+    usingElectron: false,    
     drawerOpened: false,
     fetching: false,
     pokemonList: [],
