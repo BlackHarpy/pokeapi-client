@@ -70,10 +70,6 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-function openBulbapediaArticle(action) {
-  console.log('hi bulbapedia', action)
-}
-
 function buildCardIconButton(link, usingElectron, showBulbapediaSection) {
   const buttonConfig = {
     width: 40,
