@@ -3,9 +3,9 @@ function test() {
   console.log('hola', window);
 }
 export const BulbapediaSection = ({link}) => (
-  <div style={{width: 640, height: 480}}>
+  <div style={{ width: '100%', height: '100%' }}>
   {test()}   
-    <webview id="foo" src="https://www.github.com/" style={{width: 640, height: 480}}>
+    <webview id="foo" src="https://www.github.com/" style={{ width: '100%', height: '100%' }}>
     </webview>
   </div>
 );

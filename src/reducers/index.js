@@ -6,7 +6,8 @@ const initialState = {
   selectedPokemon: {},
   next: 'https://pokeapi.co/api/v2/pokemon/',
   fetchingPokemon: false,
-  selectedPokemon: {}
+  selectedPokemon: {},
+  visibleSection: 'pokemonInfo'
 }
 
 const pokemonReducers = (state = initialState, action) => {
@@ -25,6 +26,10 @@ const pokemonReducers = (state = initialState, action) => {
       return {...state, fetchingPokemon: true}
     case 'RECIEVE_POKEMON_INFO':
       return {...state, fetchingPokemon: false, selectedPokemon: action.selectedPokemon}  
+    case 'SHOW_POKEMON_INFO':
+      return {...state, visibleSection: 'pokemonInfo'}
+    case 'SHOW_BULBAPEDIA_SECTION':
+      return {...state, visibleSection: 'bulbapediaSection'}
     default:
       return state;
   }

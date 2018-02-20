@@ -3,9 +3,12 @@ import {MainBar} from './MainBar'
 import {PokemonInfo} from './PokemonInfo'
 
 const App = () => (
-  <div>
-    <MainBar />
-    <PokemonInfo />
+  <div style={{ height: '100%' }}>
+    <MainBar> 
+      Hooooola
+
+    </MainBar>
+    <PokemonInfo style={{ height: '100%' }}/>
   </div>
 )
 

@@ -22,7 +22,8 @@ function mapStateToProps(state) {
   return {
     usingElectron: state.usingElectron,
     pokemonData: state.selectedPokemon,
-    fetchingPokemon: state.fetchingPokemon
+    fetchingPokemon: state.fetchingPokemon,
+    visibleSection: state.visibleSection
   }
 }
 
@@ -64,10 +65,9 @@ function buildContent (fetchingPokemon,pokemonData, usingElectron) {
     </Paper>
   </div>)
 }
-const Container = ({fetchingPokemon, pokemonData, usingElectron}) => {
-  return (<div>
-    {buildContent(fetchingPokemon, pokemonData, usingElectron)}
-    {/* <BulbapediaSection /> */}
+const Container = ({fetchingPokemon, pokemonData, usingElectron, visibleSection}) => {
+  return (<div style={{ height: '100%' }}>
+    {visibleSection === 'pokemonInfo' ? buildContent(fetchingPokemon, pokemonData, usingElectron) :  <BulbapediaSection />}
   </div>);
 };
 

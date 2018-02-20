@@ -46,6 +46,18 @@ export const recievePokemonInfo = (selectedPokemon) => {
   }
 }
 
+export const showBulbapediaSection = () => {
+  return {
+    type: 'SHOW_BULBAPEDIA_SECTION'
+  }
+}
+
+export const showPokemonInfo = () => {
+  return {
+    type: 'SHOW_POKEMON_INFO'
+  }
+}
+
 export function fetchNext(url) {
   return dispatch => {
     dispatch(requestNext())

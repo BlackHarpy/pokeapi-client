@@ -79,6 +79,20 @@ describe('actions', () => {
         };
         expect(actions.recievePokemonInfo(pokemon)).toEqual(expectedAction)
     });
+
+    it('should create an action to show Bulbapedia Webview', () => {
+        const expectedAction = {
+            type: 'SHOW_BULBAPEDIA_SECTION'
+        };
+        expect(actions.showBulbapediaSection()).toEqual(expectedAction)
+    });
+
+    it('should create an action to show Pokemon info section', () => {
+        const expectedAction = {
+            type: 'SHOW_POKEMON_INFO'
+        };
+        expect(actions.showPokemonInfo()).toEqual(expectedAction)
+    });
 });
 
 describe('async actions', () => {

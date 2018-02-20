@@ -32,7 +32,7 @@ initializeState()
 render(
   <MuiThemeProvider>
     <Provider store={store}>
-      <App />
+      <App style={{ height: '100%' }}/>
     </Provider>
   </MuiThemeProvider>,
   document.getElementById('app')
