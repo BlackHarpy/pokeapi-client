@@ -67,7 +67,7 @@ function buildContent (fetchingPokemon,pokemonData, usingElectron) {
 }
 const Container = ({fetchingPokemon, pokemonData, usingElectron, visibleSection}) => {
   return (<div style={{ height: '100%' }}>
-    {visibleSection === 'pokemonInfo' ? buildContent(fetchingPokemon, pokemonData, usingElectron) :  <BulbapediaSection />}
+    {visibleSection === 'pokemonInfo' ? buildContent(fetchingPokemon, pokemonData, usingElectron) :  <BulbapediaSection link={pokemonData.bulbapediaArticle} />}
   </div>);
 };
 

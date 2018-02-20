@@ -4,10 +4,7 @@ import {PokemonInfo} from './PokemonInfo'
 
 const App = () => (
   <div style={{ height: '100%' }}>
-    <MainBar> 
-      Hooooola
-
-    </MainBar>
+    <MainBar />
     <PokemonInfo style={{ height: '100%' }}/>
   </div>
 )

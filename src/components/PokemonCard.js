@@ -1,4 +1,9 @@
 import React from 'react';
+import { connect } from 'react-redux'
+
+import { showBulbapediaSection } from '../actions'
+
+
 import {Card, CardActions, CardMedia, CardHeader, CardText} from 'material-ui/Card';
 import Divider from 'material-ui/Divider';
 
@@ -51,11 +56,25 @@ const cardTextStyle = {
   }
 }
 
-function openBulbapediaArticle(link) {
-  console.log('hi bulbapedia')
+function mapStateToProps(state) {
+  return {
+  }
 }
 
-function buildCardIconButton(link, usingElectron) {
+
+function mapDispatchToProps(dispatch) {
+  return {
+    showBulbapediaSection: () => {
+      dispatch(showBulbapediaSection())
+    }
+  }
+}
+
+function openBulbapediaArticle(action) {
+  console.log('hi bulbapedia', action)
+}
+
+function buildCardIconButton(link, usingElectron, showBulbapediaSection) {
   const buttonConfig = {
     width: 40,
     height: 40,
@@ -66,13 +85,13 @@ function buildCardIconButton(link, usingElectron) {
     <CardIconButton 
     link={link} 
     buttonConfig={buttonConfig}
-    electronConfig={usingElectron ? { onClick: openBulbapediaArticle } : undefined}
+    electronConfig={usingElectron ? { onClick: showBulbapediaSection } : undefined}
     />
   )
 
 }
 
-export const PokemonCard = ({data, usingElectron}) => (
+const Container = ({data, usingElectron, showBulbapediaSection}) => (
   <Card>
     <CardHeader
       title={`${data.id} - ${data.name}`}
@@ -83,7 +102,7 @@ export const PokemonCard = ({data, usingElectron}) => (
       subtitleStyle={cardHeaderStyle.subtitle}
     > 
     <div style={{ float: 'right' }}>
-    { buildCardIconButton(data.bulbapediaArticle, usingElectron) }
+    { buildCardIconButton(data.bulbapediaArticle, usingElectron, showBulbapediaSection) }
     </div>
     </CardHeader>
     <CardMedia mediaStyle={cardMediaStyle.general} style={cardMediaStyle.images}>
@@ -105,3 +124,6 @@ export const PokemonCard = ({data, usingElectron}) => (
     <StatsBox stats={data.stats} />  
   </Card>
 );
+
+export const PokemonCard = connect(mapStateToProps, mapDispatchToProps)(Container);
+
