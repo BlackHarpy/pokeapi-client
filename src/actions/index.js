@@ -70,6 +70,7 @@ export function fetchNext(url) {
 export function fetchPokemonInfo(url) {
   return dispatch => {
     dispatch(closeDrawer())
+    dispatch(showPokemonInfo())
     dispatch(requestPokemonInfo())
     return APIService.getPokemonInfo(url).then(data => {
       dispatch(recievePokemonInfo(data));

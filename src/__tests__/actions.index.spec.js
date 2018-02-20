@@ -120,6 +120,8 @@ describe('async actions', () => {
         const expectedActions = [{
             type: 'CLOSE_DRAWER'
         },{
+            type: 'SHOW_POKEMON_INFO'
+        },{
             type: 'REQUEST_POKEMON_INFO'
         }, {
             type: 'RECIEVE_POKEMON_INFO',
