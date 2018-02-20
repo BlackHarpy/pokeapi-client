@@ -76,5 +76,4 @@ export function fetchPokemonInfo(url) {
       dispatch(recievePokemonInfo(data));
     })
   }
-
 }

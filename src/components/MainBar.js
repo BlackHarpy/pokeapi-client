@@ -1,9 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import { openDrawer, closeDrawer, fetchNext } from '../actions'
+import { openDrawer, closeDrawer, fetchNext, showPokemonInfo } from '../actions'
 
 import AppBar from 'material-ui/AppBar'
 import Drawer from 'material-ui/Drawer'
+import FlatButton from 'material-ui/FlatButton';
+
 
 import {PokemonList} from './PokemonList'
 
@@ -13,7 +15,8 @@ function mapStateToProps(state) {
     drawerOpened: state.drawerOpened,
     pokemonList: state.pokemonList,
     fetching: state.fetching,
-    next: state.next
+    next: state.next,
+    visibleSection: state.visibleSection
   }
 }
 
@@ -27,15 +30,20 @@ function mapDispatchToProps(dispatch) {
     },
     fetchNext: (url) => {
       dispatch(fetchNext(url))
+    },
+    showPokemonInfo: () => {
+      dispatch(showPokemonInfo())
     }
   }
 }
 
-function handleScroll (e) {
-  
+function navButton (text, action) {
+  return (
+  <FlatButton label={text} onClick={action} />
+  )
 }
 
-const Container = ({ openDrawer, closeDrawer, drawerOpened, pokemonList, fetching, fetchNext, next }) => {
+const Container = ({ openDrawer, closeDrawer, drawerOpened, pokemonList, fetching, fetchNext, next, visibleSection, showPokemonInfo }) => {
   const handleMenuClick = (e) => {
     openDrawer();
   }
@@ -54,7 +62,8 @@ const Container = ({ openDrawer, closeDrawer, drawerOpened, pokemonList, fetchin
 
   return (
     <div>
-      <AppBar title="Pokédex" onLeftIconButtonClick={handleMenuClick} />
+      <AppBar title="Pokédex" onLeftIconButtonClick={handleMenuClick} 
+      iconElementRight={visibleSection === 'bulbapediaSection' ? navButton('Go Back', showPokemonInfo) : undefined}/>
       <div onScroll={handleScroll}>
         <Drawer docked={false} open={drawerOpened} onRequestChange={closeDrawer}>
           <PokemonList list={pokemonList}/>
