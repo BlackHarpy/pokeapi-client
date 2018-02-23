@@ -6,18 +6,20 @@ function getWebIconButton (link, buttonConfig) {
     width: buttonConfig.width + 5, 
     height: buttonConfig.width + 5, 
     minWidth: buttonConfig.width + 8, 
-    marginRight: 20
+    marginRight: 30,
+    padding: 0
   }
   const imageStyle = {
     width: buttonConfig.width, 
-    height: buttonConfig.height 
+    height: buttonConfig.height
   }
   return (
     <IconButton iconStyle={iconStyle} 
     tooltip={buttonConfig.tooltipText} 
     tooltipPosition="top-right"
     href={link}
-    target="_blank">
+    target="_blank"
+    style={{ padding: 0 }}>
       <img src={buttonConfig.imageSrc} style={imageStyle}/>
     </IconButton>
   )

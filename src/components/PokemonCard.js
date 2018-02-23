@@ -1,11 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux'
 
+import anime from 'animejs'
+
 import { showBulbapediaSection } from '../actions'
 
 
 import {Card, CardActions, CardMedia, CardHeader, CardText} from 'material-ui/Card';
 import Divider from 'material-ui/Divider';
+import Favorite from 'material-ui/svg-icons/action/favorite';
+
 
 import {TypeBox} from './TypeBox'
 import {StatsBox} from './StatsBox'
@@ -56,6 +60,11 @@ const cardTextStyle = {
   }
 }
 
+const loveIcon = {
+  height: 30,
+  width: 30,
+}
+
 function mapStateToProps(state) {
   return {
   }
@@ -72,8 +81,9 @@ function mapDispatchToProps(dispatch) {
 
 function buildCardIconButton(link, usingElectron, showBulbapediaSection) {
   const buttonConfig = {
-    width: 40,
-    height: 40,
+    width: 30,
+    height: 30,
+    padding: 0,
     tooltipText: 'Bulbapedia Article',
     imageSrc: './public/assets/60px-Bulbapedia_bulb.png'
   }
@@ -86,6 +96,24 @@ function buildCardIconButton(link, usingElectron, showBulbapediaSection) {
   )
 }
 
+function buildFavoriteIcon() {
+  return <div className="love-icon" style={{ display: 'flex', alignItems: 'center' }}>
+          <Favorite className="heart" style={loveIcon}  onClick={clickTest}/>
+        </div>
+}
+
+function clickTest () {
+  console.log('test');
+  const timeline = anime.timeline();
+  const test = anime({
+    targets: '.heart',
+    scale: [0, 1],
+    color: 'rgb(255, 0, 0)',
+    easing: 'linear',
+    duration: 200,
+  })
+}
+
 const Container = ({data, usingElectron, showBulbapediaSection}) => (
   <Card>
     <CardHeader
@@ -96,9 +124,11 @@ const Container = ({data, usingElectron, showBulbapediaSection}) => (
       titleStyle={cardHeaderStyle.title}
       subtitleStyle={cardHeaderStyle.subtitle}
     > 
-    <div style={{ float: 'right' }}>
-    { buildCardIconButton(data.bulbapediaArticle, usingElectron, showBulbapediaSection) }
+    <div style={{ float: 'right', display: 'flex' }}>
+    { buildCardIconButton(data.bulbapediaArtiscle, usingElectron, showBulbapediaSection) }
+    { buildFavoriteIcon () }
     </div>
+    
     </CardHeader>
     <CardMedia mediaStyle={cardMediaStyle.general} style={cardMediaStyle.images}>
       <div>
