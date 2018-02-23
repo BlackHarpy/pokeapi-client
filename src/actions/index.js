@@ -58,6 +58,18 @@ export const showPokemonInfo = () => {
   }
 }
 
+export const likePokemon = () => {
+  return {
+    type: 'LIKE_POKEMON'
+  }
+}
+
+export const unlikePokemon = () => {
+  return {
+    type: 'UNLIKE_POKEMON'
+  }
+}
+
 export function fetchNext(url) {
   return dispatch => {
     dispatch(requestNext())

@@ -18,7 +18,8 @@ describe('reducers', () => {
     next: 'https://pokeapi.co/api/v2/pokemon/',
     fetchingPokemon: false,
     selectedPokemon: {},
-    visibleSection: 'pokemonInfo'
+    visibleSection: 'pokemonInfo',
+    likedPokemon: []
   };
 
   it('should return the initial state', () => {
@@ -39,7 +40,8 @@ describe('reducers', () => {
     next: 'https://pokeapi.co/api/v2/pokemon/',
     fetchingPokemon: false,
     selectedPokemon: {},
-    visibleSection: 'pokemonInfo'
+    visibleSection: 'pokemonInfo',
+    likedPokemon: []    
   }
 
   testReducer('SAVE_ELECTRON_VALUE', action, expected);
@@ -57,7 +59,8 @@ describe('reducers', () => {
     next: 'https://pokeapi.co/api/v2/pokemon/',
     fetchingPokemon: false,
     selectedPokemon: {},
-    visibleSection: 'pokemonInfo'
+    visibleSection: 'pokemonInfo',
+    likedPokemon: []    
   }
 
   testReducer('OPEN_DRAWER', action, expected);
@@ -75,7 +78,8 @@ describe('reducers', () => {
     next: 'https://pokeapi.co/api/v2/pokemon/',
     fetchingPokemon: false,
     selectedPokemon: {},
-    visibleSection: 'pokemonInfo'
+    visibleSection: 'pokemonInfo',
+    likedPokemon: []    
   }
 
   testReducer('CLOSE_DRAWER', action, expected);
@@ -93,7 +97,8 @@ describe('reducers', () => {
     next: 'https://pokeapi.co/api/v2/pokemon/',
     fetchingPokemon: false,
     selectedPokemon: {},
-    visibleSection: 'pokemonInfo'
+    visibleSection: 'pokemonInfo',
+    likedPokemon: []    
   }
 
   testReducer('REQUEST_NEXT', action, expected);
@@ -118,7 +123,8 @@ describe('reducers', () => {
     next: 'page2.url',
     fetchingPokemon: false,
     selectedPokemon: {},
-    visibleSection: 'pokemonInfo'
+    visibleSection: 'pokemonInfo',
+    likedPokemon: []    
   }
 
   testReducer('RECIEVE_NEXT', action, expected);
@@ -136,7 +142,8 @@ describe('reducers', () => {
     next: 'https://pokeapi.co/api/v2/pokemon/',
     fetchingPokemon: true,
     selectedPokemon: {},
-    visibleSection: 'pokemonInfo'
+    visibleSection: 'pokemonInfo',
+    likedPokemon: []    
   }
 
   testReducer('REQUEST_POKEMON_INFO', action, expected);
@@ -159,7 +166,8 @@ describe('reducers', () => {
     selectedPokemon: {
       name: 'pikachu'
     },
-    visibleSection: 'pokemonInfo'
+    visibleSection: 'pokemonInfo',
+    likedPokemon: []    
   }
 
   testReducer('RECIEVE_POKEMON_INFO', action, expected);
@@ -177,7 +185,8 @@ describe('reducers', () => {
     next: 'https://pokeapi.co/api/v2/pokemon/',
     fetchingPokemon: false,
     selectedPokemon: {},
-    visibleSection: 'pokemonInfo'
+    visibleSection: 'pokemonInfo',
+    likedPokemon: []    
   }
 
   testReducer('SHOW_POKEMON_INFO', action, expected);
@@ -195,7 +204,8 @@ describe('reducers', () => {
     next: 'https://pokeapi.co/api/v2/pokemon/',
     fetchingPokemon: false,
     selectedPokemon: {},
-    visibleSection: 'bulbapediaSection'
+    visibleSection: 'bulbapediaSection',
+    likedPokemon: []    
   }
 
   testReducer('SHOW_BULBAPEDIA_SECTION', action, expected);

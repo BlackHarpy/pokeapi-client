@@ -1,5 +1,5 @@
 {
-  "name": "pokeapi-client",
+  "name": "pokeapiclient",
   "version": "1.0.0",
   "description": "Simple client for pokeapi",
   "main": "main.js",
@@ -7,7 +7,8 @@
     "build": "webpack --config webpack.config.js",
     "watch": "webpack --watch --config webpack.config",
     "test": "jest --verbose",
-    "start": "electron ."
+    "start": "electron .",
+    "dist": "build"
   },
   "repository": {
     "type": "git",
@@ -20,6 +21,7 @@
   },
   "homepage": "https://github.com/BlackHarpy/pokeapi-client#readme",
   "dependencies": {
+    "animejs": "^2.2.0",
     "material-ui": "^0.20.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
@@ -37,6 +39,7 @@
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-3": "^6.24.1",
     "electron": "1.8.2",
+    "electron-builder": "^20.0.7",
     "electron-devtools-installer": "^2.2.3",
     "enzyme": "^3.2.0",
     "enzyme-adapter-react-16": "^1.1.1",
@@ -45,5 +48,12 @@
     "react-test-renderer": "^16.2.0",
     "redux-mock-store": "^1.5.1",
     "webpack": "^3.10.0"
+  },
+  "build": {
+    "appId": "my.app.test",
+    "win": {
+      "target": "nsis",
+      "icon": ""
+    }
   }
 }

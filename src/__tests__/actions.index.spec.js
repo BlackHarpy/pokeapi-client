@@ -93,6 +93,20 @@ describe('actions', () => {
         };
         expect(actions.showPokemonInfo()).toEqual(expectedAction)
     });
+
+    it('should create an action to like Pokemon', () => {
+        const expectedAction = {
+            type: 'LIKE_POKEMON'
+        };
+        expect(actions.likePokemon()).toEqual(expectedAction)
+    });
+
+    it('should create an action to unlike Pokemon', () => {
+        const expectedAction = {
+            type: 'UNLIKE_POKEMON'
+        };
+        expect(actions.unlikePokemon()).toEqual(expectedAction)
+    });
 });
 
 describe('async actions', () => {

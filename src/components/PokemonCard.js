@@ -84,7 +84,6 @@ function buildCardIconButton(link, usingElectron, showBulbapediaSection) {
     electronConfig={usingElectron ? { onClick: showBulbapediaSection } : undefined}
     />
   )
-
 }
 
 const Container = ({data, usingElectron, showBulbapediaSection}) => (
