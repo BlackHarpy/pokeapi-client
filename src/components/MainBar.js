@@ -8,6 +8,7 @@ import FlatButton from 'material-ui/FlatButton';
 
 
 import {PokemonList} from './PokemonList'
+import { PokemonFavorites } from './PokemonFavorites'
 
 
 function mapStateToProps(state) {
@@ -16,7 +17,8 @@ function mapStateToProps(state) {
     pokemonList: state.pokemonList,
     fetching: state.fetching,
     next: state.next,
-    visibleSection: state.visibleSection
+    visibleSection: state.visibleSection,
+    usingElectron: state.usingElectron
   }
 }
 
@@ -43,7 +45,23 @@ function navButton (text, action) {
   )
 }
 
-const Container = ({ openDrawer, closeDrawer, drawerOpened, pokemonList, fetching, fetchNext, next, visibleSection, showPokemonInfo }) => {
+function getFavoritesList (usingElectron) {
+  if (usingElectron) {
+    return <PokemonFavorites /> 
+  }
+}
+
+const Container = ({ 
+  openDrawer, 
+  closeDrawer, 
+  drawerOpened, 
+  pokemonList, 
+  fetching, 
+  fetchNext, 
+  next, 
+  visibleSection,
+  showPokemonInfo, 
+  usingElectron }) => {
   const handleMenuClick = (e) => {
     openDrawer();
   }
@@ -66,6 +84,7 @@ const Container = ({ openDrawer, closeDrawer, drawerOpened, pokemonList, fetchin
       iconElementRight={visibleSection === 'bulbapediaSection' ? navButton('Go Back', showPokemonInfo) : undefined}/>
       <div onScroll={handleScroll}>
         <Drawer docked={false} open={drawerOpened} onRequestChange={closeDrawer}>
+        {getFavoritesList(usingElectron)}
           <PokemonList list={pokemonList}/>
         </Drawer>
       </div>

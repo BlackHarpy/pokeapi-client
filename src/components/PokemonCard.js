@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux'
 
 import anime from 'animejs'
+const {ipcRenderer} = window.require('electron');
 
 import { showBulbapediaSection } from '../actions'
 
@@ -103,15 +104,26 @@ function buildFavoriteIcon() {
 }
 
 function clickTest () {
-  console.log('test');
-  const timeline = anime.timeline();
-  const test = anime({
+  const heartAnimation = anime({
     targets: '.heart',
     scale: [0, 1],
     color: 'rgb(255, 0, 0)',
     easing: 'linear',
     duration: 200,
   })
+
+  const json = [{
+    id: 1,
+    name: 'pikachu'
+  }, {
+    id: 2,
+    name: 'raichu'
+  }]
+  
+  ipcRenderer.on('save-favorite-result', (event, arg) => {
+    console.log(arg) // prints "pong"
+  })
+  ipcRenderer.send('save-favorite', json)
 }
 
 const Container = ({data, usingElectron, showBulbapediaSection}) => (

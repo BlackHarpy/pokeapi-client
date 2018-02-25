@@ -1,5 +1,6 @@
 const electron = require('electron')
-const { Menu, Notification, Tray, dialog } = require('electron')
+const { Menu, Notification, Tray, dialog, ipcMain } = require('electron')
+const StoreService = require('./src/services/StoreService')
 const app = electron.app
 const BrowserWindow = electron.BrowserWindow
 
@@ -16,19 +17,14 @@ function installDevExtensions() {
     .catch((err) => console.log('An error occurred: ', err));
 }
 
-function eventHandler() {
-
-
-}
-
 function testNotification() {
   const template = [{
     label: 'File',
     submenu: [{
-        label: 'Test',
-        click: eventHandler
-      },
-      {role: 'quit'}
+      label: 'Test',
+      click: eventHandler
+    },
+    { role: 'quit' }
     ]
   }, {
     label: 'Edit',
@@ -50,6 +46,11 @@ function testNotification() {
 
 }
 
+async function getFavorites() {
+  const content = await StoreService.readFile();
+  console.log(content);
+}
+
 function setTray() {
   // tray = new Tray('public/assets/60px-Bulbapedia_bulb.png')
   //   const contextMenu = Menu.buildFromTemplate([
@@ -59,10 +60,9 @@ function setTray() {
   //   tray.setContextMenu(contextMenu)
 }
 function createWindow() {
-  setTray();
-  
+
   installDevExtensions();
-  mainWindow = new BrowserWindow()
+  mainWindow = new BrowserWindow({show: false})
 
   mainWindow.loadURL(url.format({
     pathname: path.join(__dirname, 'index.html'),
@@ -70,12 +70,24 @@ function createWindow() {
     slashes: true
   }))
 
-  testNotification();
+  mainWindow.once('ready-to-show', () => {
+    mainWindow.show()
+    getFavorites();
+  })
 
   mainWindow.on('closed', function () {
     mainWindow = null
   })
+
 }
+
+async function saveFile(event, content) {
+  const response = await StoreService.saveFile(content);
+  event.sender.send('save-favorite-result', response)  
+} 
+
+ipcMain.on('save-favorite', saveFile)
+
 
 app.on('ready', createWindow)
 
