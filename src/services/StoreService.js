@@ -25,9 +25,9 @@ class Store {
       const filePath = path.join(userDataPath, 'favorites.json');
       fs.readFile(filePath, 'utf8', function (err, contents) {
         if (err) {
-          resolve([]);
+          reject(err);
         }
-        resolve(contents);
+        resolve(JSON.parse(contents));
       });
     })
   }

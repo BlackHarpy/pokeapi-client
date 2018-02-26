@@ -17,40 +17,6 @@ function installDevExtensions() {
     .catch((err) => console.log('An error occurred: ', err));
 }
 
-function testNotification() {
-  const template = [{
-    label: 'File',
-    submenu: [{
-      label: 'Test',
-      click: eventHandler
-    },
-    { role: 'quit' }
-    ]
-  }, {
-    label: 'Edit',
-    submenu: [
-      { role: 'undo' },
-      { role: 'redo' },
-      { type: 'separator' },
-      { role: 'cut' },
-      { role: 'copy' },
-      { role: 'paste' },
-      { role: 'pasteandmatchstyle' },
-      { role: 'delete' },
-      { role: 'selectall' }
-    ]
-  }]
-
-  const menu = Menu.buildFromTemplate(template)
-  Menu.setApplicationMenu(menu)
-
-}
-
-async function getFavorites() {
-  const content = await StoreService.readFile();
-  console.log(content);
-}
-
 function setTray() {
   // tray = new Tray('public/assets/60px-Bulbapedia_bulb.png')
   //   const contextMenu = Menu.buildFromTemplate([
@@ -72,7 +38,6 @@ function createWindow() {
 
   mainWindow.once('ready-to-show', () => {
     mainWindow.show()
-    getFavorites();
   })
 
   mainWindow.on('closed', function () {
@@ -82,12 +47,29 @@ function createWindow() {
 }
 
 async function saveFile(event, content) {
-  const response = await StoreService.saveFile(content);
-  event.sender.send('save-favorite-result', response)  
+  let response = [];
+  try {
+    response = await StoreService.saveFile(content);
+  } catch(e) {
+    console.log('error retrieving favorites')
+  } finally {
+    event.sender.send('save-favorite-result', response)  
+  }
 } 
 
-ipcMain.on('save-favorite', saveFile)
+async function getFavorites(event) {
+  let list = []
+  try {
+    list = await StoreService.readFile();
+  } catch(e) {
+    console.log('error retrieving favorites')
+  } finally {
+    event.sender.send('load-favorites-result', list);
+  }
+}
 
+ipcMain.on('save-favorite', saveFile)
+ipcMain.on('load-favorites', getFavorites)
 
 app.on('ready', createWindow)
 

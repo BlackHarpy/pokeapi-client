@@ -66,6 +66,14 @@ export const updateFavorites = (newList) => {
   }
 }
 
+export function loadFavorites() {
+  return dispatch => {
+    IpcService.sendLoadMessage().then(data => {
+      dispatch(updateFavorites(data));
+    })
+  }
+}
+
 export function saveFavorites(newList) {
   return dispatch => {
     return IpcService.sendSaveMessage(newList).then(data => {

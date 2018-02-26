@@ -8,11 +8,7 @@ const initialState = {
   fetchingPokemon: false,
   selectedPokemon: {},
   visibleSection: 'pokemonInfo',
-  likedPokemon: [{
-    id: 12,
-    url: 'https://pokeapi.co/api/v2/pokemon/12/',
-    name: 'Butterfree'
-  }]  
+  likedPokemon: []  
 }
 
 const pokemonReducers = (state = initialState, action) => {

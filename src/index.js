@@ -6,16 +6,22 @@ import thunk from 'redux-thunk'
 import pokemonReducers from './reducers'
 import App from './components/App'
 
-import { fetchNext, saveElectronValue } from './actions/index'
+import { fetchNext, saveElectronValue, loadFavorites } from './actions/index'
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+
+import { IpcService } from './services/IpcService'
 
 let store = createStore(pokemonReducers,
   compose(applyMiddleware(thunk), window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()));
 
 function checkElectron() {
   const userAgent = navigator.userAgent.toLowerCase()
-  return store.dispatch(saveElectronValue(userAgent.indexOf(' electron/') > -1))
+  const usingElectron = userAgent.indexOf(' electron/') > -1;
+  if (usingElectron) {
+    store.dispatch(loadFavorites())
+  }
+  return store.dispatch(saveElectronValue(usingElectron))
 }
 
 function loadList() {
