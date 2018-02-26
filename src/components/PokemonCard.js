@@ -60,7 +60,7 @@ const cardTextStyle = {
 
 function mapStateToProps(state) {
   return {
-    likedPokemon: state.likedPokemon
+    favoritePokemon: state.favoritePokemon
   }
 }
 
@@ -93,7 +93,7 @@ function buildCardIconButton(link, usingElectron, showBulbapediaSection) {
   )
 }
 
-function buildFavoriteIcon(pokemontListItem, favorite, saveFavorites, likedPokemon) {
+function buildFavoriteIcon(pokemontListItem, favorite, saveFavorites, favoritePokemon) {
   const loveIcon = {
     height: 30,
     width: 30,
@@ -102,7 +102,7 @@ function buildFavoriteIcon(pokemontListItem, favorite, saveFavorites, likedPokem
 
   const onClick = (e) => {
     e.preventDefault()
-    handleClick(pokemontListItem, favorite, saveFavorites, likedPokemon)
+    handleClick(pokemontListItem, favorite, saveFavorites, favoritePokemon)
   }
 
   return <div className="love-icon" style={{ display: 'flex', alignItems: 'center' }}>
@@ -127,7 +127,7 @@ function handleClick (item, favorite, saveFavorites, oldList) {
   saveFavorites(newList);
 }
 
-const Container = ({data, usingElectron, showBulbapediaSection, favorite, likedPokemon, saveFavorites}) => (
+const Container = ({data, usingElectron, showBulbapediaSection, favorite, favoritePokemon, saveFavorites}) => (
   <Card>
     <CardHeader
       title={`${data.id} - ${data.name}`}
@@ -140,7 +140,7 @@ const Container = ({data, usingElectron, showBulbapediaSection, favorite, likedP
     <div style={{ float: 'right', display: 'flex' }}>
     { buildCardIconButton(data.bulbapediaArticle, usingElectron, showBulbapediaSection) }
     { usingElectron ? 
-      buildFavoriteIcon({id: data.id, url: data.url, name: data.name}, favorite, saveFavorites, likedPokemon) :
+      buildFavoriteIcon({id: data.id, url: data.url, name: data.name}, favorite, saveFavorites, favoritePokemon) :
       null }
     </div>
     

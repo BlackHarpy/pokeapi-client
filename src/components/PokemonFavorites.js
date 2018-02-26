@@ -8,7 +8,7 @@ import { fetchPokemonInfo } from '../actions/index'
 
 function mapStateToProps(state) {
   return {
-    likedPokemon: state.likedPokemon
+    favoritePokemon: state.favoritePokemon
   }
 }
 
@@ -28,17 +28,24 @@ function spinner(fetching) {
   }
 }
 
-const Container = ({ likedPokemon, fetchPokemonInfo, fetching }) => {
-  const handleClick = (url) => {
-    fetchPokemonInfo(url)
-  }
-  return (<div>
-    {/* {likedPokemon.map((pokemon, index) => {
+function listfavoritePokemons(favoritePokemon, handleClick) {
+  if (favoritePokemon.length) {
+    return favoritePokemon.map((pokemon, index) => {
       return <MenuItem key={index} onClick={e => { e.preventDefault(); handleClick(pokemon.url) }}>
         {pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}
       </MenuItem>
-    })} */}
-    <div> Favorites </div>
+    })
+  } else {
+    return <MenuItem> No Favorites yet :( </MenuItem>
+  }
+}
+
+const Container = ({ favoritePokemon, fetchPokemonInfo, fetching }) => {
+  const handleClick = (url) => {
+    fetchPokemonInfo(url)
+  }
+  return (<div style={{ backgroundColor: 'lightpink' }}>
+    {listfavoritePokemons(favoritePokemon, handleClick)}
   </div>)
 }
 

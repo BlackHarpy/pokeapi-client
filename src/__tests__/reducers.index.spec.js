@@ -19,7 +19,7 @@ describe('reducers', () => {
     fetchingPokemon: false,
     selectedPokemon: {},
     visibleSection: 'pokemonInfo',
-    likedPokemon: []
+    favoritePokemon: []
   };
 
   it('should return the initial state', () => {
@@ -41,7 +41,7 @@ describe('reducers', () => {
     fetchingPokemon: false,
     selectedPokemon: {},
     visibleSection: 'pokemonInfo',
-    likedPokemon: []    
+    favoritePokemon: []    
   }
 
   testReducer('SAVE_ELECTRON_VALUE', action, expected);
@@ -60,7 +60,7 @@ describe('reducers', () => {
     fetchingPokemon: false,
     selectedPokemon: {},
     visibleSection: 'pokemonInfo',
-    likedPokemon: []    
+    favoritePokemon: []    
   }
 
   testReducer('OPEN_DRAWER', action, expected);
@@ -79,7 +79,7 @@ describe('reducers', () => {
     fetchingPokemon: false,
     selectedPokemon: {},
     visibleSection: 'pokemonInfo',
-    likedPokemon: []    
+    favoritePokemon: []    
   }
 
   testReducer('CLOSE_DRAWER', action, expected);
@@ -98,7 +98,7 @@ describe('reducers', () => {
     fetchingPokemon: false,
     selectedPokemon: {},
     visibleSection: 'pokemonInfo',
-    likedPokemon: []    
+    favoritePokemon: []    
   }
 
   testReducer('REQUEST_NEXT', action, expected);
@@ -124,7 +124,7 @@ describe('reducers', () => {
     fetchingPokemon: false,
     selectedPokemon: {},
     visibleSection: 'pokemonInfo',
-    likedPokemon: []    
+    favoritePokemon: []    
   }
 
   testReducer('RECIEVE_NEXT', action, expected);
@@ -143,7 +143,7 @@ describe('reducers', () => {
     fetchingPokemon: true,
     selectedPokemon: {},
     visibleSection: 'pokemonInfo',
-    likedPokemon: []    
+    favoritePokemon: []    
   }
 
   testReducer('REQUEST_POKEMON_INFO', action, expected);
@@ -167,7 +167,7 @@ describe('reducers', () => {
       name: 'pikachu'
     },
     visibleSection: 'pokemonInfo',
-    likedPokemon: []    
+    favoritePokemon: []    
   }
 
   testReducer('RECIEVE_POKEMON_INFO', action, expected);
@@ -186,7 +186,7 @@ describe('reducers', () => {
     fetchingPokemon: false,
     selectedPokemon: {},
     visibleSection: 'pokemonInfo',
-    likedPokemon: []    
+    favoritePokemon: []    
   }
 
   testReducer('SHOW_POKEMON_INFO', action, expected);
@@ -205,7 +205,7 @@ describe('reducers', () => {
     fetchingPokemon: false,
     selectedPokemon: {},
     visibleSection: 'bulbapediaSection',
-    likedPokemon: []    
+    favoritePokemon: []    
   }
 
   testReducer('SHOW_BULBAPEDIA_SECTION', action, expected);

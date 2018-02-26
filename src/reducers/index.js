@@ -8,7 +8,7 @@ const initialState = {
   fetchingPokemon: false,
   selectedPokemon: {},
   visibleSection: 'pokemonInfo',
-  likedPokemon: []  
+  favoritePokemon: []  
 }
 
 const pokemonReducers = (state = initialState, action) => {
@@ -32,9 +32,9 @@ const pokemonReducers = (state = initialState, action) => {
     case 'SHOW_BULBAPEDIA_SECTION':
       return {...state, visibleSection: 'bulbapediaSection'}
     case 'LIKE_POKEMON':
-      return {...state, likedPokemon: [...state.likedPokemon, action.pokemon]}
+      return {...state, favoritePokemon: [...state.favoritePokemon, action.pokemon]}
     case 'UPDATE_FAVORITES':
-      return {...state, likedPokemon: action.newList}
+      return {...state, favoritePokemon: action.newList}
     default:
       return state;
   }

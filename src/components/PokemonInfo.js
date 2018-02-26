@@ -24,7 +24,7 @@ function mapStateToProps(state) {
     pokemonData: state.selectedPokemon,
     fetchingPokemon: state.fetchingPokemon,
     visibleSection: state.visibleSection,
-    likedPokemon: state.likedPokemon
+    favoritePokemon: state.favoritePokemon
   }
 }
 
@@ -44,39 +44,39 @@ function getStartCard() {
   )
 }
 
-function isFavorite(pokemonId, likedPokemon) {
-  const index = likedPokemon.findIndex((item) => {
+function isFavorite(pokemonId, favoritePokemon) {
+  const index = favoritePokemon.findIndex((item) => {
     return pokemonId === item.id;
   })
 
   return index !== -1;
 }
 
-function getPokemonCard(pokemonData, usingElectron, likedPokemon) {
-  return <PokemonCard data={pokemonData} usingElectron={usingElectron} favorite={isFavorite(pokemonData.id, likedPokemon)} />
+function getPokemonCard(pokemonData, usingElectron, favoritePokemon) {
+  return <PokemonCard data={pokemonData} usingElectron={usingElectron} favorite={isFavorite(pokemonData.id, favoritePokemon)} />
 }
 
-function getCard(fetchingPokemon, pokemonData, usingElectron, likedPokemon) {
+function getCard(fetchingPokemon, pokemonData, usingElectron, favoritePokemon) {
   if (fetchingPokemon) {
     return getSpinner();
   }
   if (!pokemonData.name) {
     return getStartCard();
   }
-  return getPokemonCard(pokemonData, usingElectron, likedPokemon);
+  return getPokemonCard(pokemonData, usingElectron, favoritePokemon);
 }
 
-function buildContent (fetchingPokemon,pokemonData, usingElectron, likedPokemon) {
+function buildContent (fetchingPokemon,pokemonData, usingElectron, favoritePokemon) {
   return  (
   <div  style={{textAlign :'center'}}>
     <Paper style={style} zDepth={2}> 
-     {getCard(fetchingPokemon, pokemonData, usingElectron, likedPokemon)}
+     {getCard(fetchingPokemon, pokemonData, usingElectron, favoritePokemon)}
     </Paper>
   </div>)
 }
-const Container = ({fetchingPokemon, pokemonData, usingElectron, visibleSection, likedPokemon}) => {
+const Container = ({fetchingPokemon, pokemonData, usingElectron, visibleSection, favoritePokemon}) => {
   return (<div style={{ height: '100%' }}>
-    {visibleSection === 'pokemonInfo' ? buildContent(fetchingPokemon, pokemonData, usingElectron, likedPokemon) :  <BulbapediaSection link={pokemonData.bulbapediaArticle} />}
+    {visibleSection === 'pokemonInfo' ? buildContent(fetchingPokemon, pokemonData, usingElectron, favoritePokemon) :  <BulbapediaSection link={pokemonData.bulbapediaArticle} />}
   </div>);
 };
 
