@@ -23,7 +23,8 @@ function mapStateToProps(state) {
     usingElectron: state.usingElectron,
     pokemonData: state.selectedPokemon,
     fetchingPokemon: state.fetchingPokemon,
-    visibleSection: state.visibleSection
+    visibleSection: state.visibleSection,
+    likedPokemon: state.likedPokemon
   }
 }
 
@@ -43,31 +44,39 @@ function getStartCard() {
   )
 }
 
-function getPokemonCard(pokemonData, usingElectron) {
-  return <PokemonCard data={pokemonData} usingElectron={usingElectron} />
+function isFavorite(pokemonId, likedPokemon) {
+  const index = likedPokemon.findIndex((item) => {
+    return pokemonId === item.id;
+  })
+
+  return index !== -1;
 }
 
-function getCard(fetchingPokemon, pokemonData, usingElectron) {
+function getPokemonCard(pokemonData, usingElectron, likedPokemon) {
+  return <PokemonCard data={pokemonData} usingElectron={usingElectron} favorite={isFavorite(pokemonData.id, likedPokemon)} />
+}
+
+function getCard(fetchingPokemon, pokemonData, usingElectron, likedPokemon) {
   if (fetchingPokemon) {
     return getSpinner();
   }
   if (!pokemonData.name) {
     return getStartCard();
   }
-  return getPokemonCard(pokemonData, usingElectron);
+  return getPokemonCard(pokemonData, usingElectron, likedPokemon);
 }
 
-function buildContent (fetchingPokemon,pokemonData, usingElectron) {
+function buildContent (fetchingPokemon,pokemonData, usingElectron, likedPokemon) {
   return  (
   <div  style={{textAlign :'center'}}>
     <Paper style={style} zDepth={2}> 
-     {getCard(fetchingPokemon, pokemonData, usingElectron)}
+     {getCard(fetchingPokemon, pokemonData, usingElectron, likedPokemon)}
     </Paper>
   </div>)
 }
-const Container = ({fetchingPokemon, pokemonData, usingElectron, visibleSection}) => {
+const Container = ({fetchingPokemon, pokemonData, usingElectron, visibleSection, likedPokemon}) => {
   return (<div style={{ height: '100%' }}>
-    {visibleSection === 'pokemonInfo' ? buildContent(fetchingPokemon, pokemonData, usingElectron) :  <BulbapediaSection link={pokemonData.bulbapediaArticle} />}
+    {visibleSection === 'pokemonInfo' ? buildContent(fetchingPokemon, pokemonData, usingElectron, likedPokemon) :  <BulbapediaSection link={pokemonData.bulbapediaArticle} />}
   </div>);
 };
 

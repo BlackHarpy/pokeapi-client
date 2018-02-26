@@ -1,4 +1,5 @@
 import {APIService} from '../services/APIService'
+import {IpcService} from '../services/IpcService'
 
 export const saveElectronValue = (usingElectron) => {
   return {
@@ -58,15 +59,18 @@ export const showPokemonInfo = () => {
   }
 }
 
-export const likePokemon = () => {
+export const updateFavorites = (newList) => {
   return {
-    type: 'LIKE_POKEMON'
+    type: 'UPDATE_FAVORITES',
+    newList
   }
 }
 
-export const unlikePokemon = () => {
-  return {
-    type: 'UNLIKE_POKEMON'
+export function saveFavorites(newList) {
+  return dispatch => {
+    return IpcService.sendSaveMessage(newList).then(data => {
+      dispatch(updateFavorites(newList));
+    })
   }
 }
 

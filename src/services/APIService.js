@@ -7,9 +7,10 @@ async function makeRequest (url, method = {}) {
   return await (await fetch(request)).json();
 };
 
-function buildPokemonInfoObject(baseInfo, speciesInfo) {
+function buildPokemonInfoObject(baseInfo, speciesInfo, url) {
   const enFlavorText = speciesInfo.flavor_text_entries.find(entry => {return entry.language.name === 'en'}).flavor_text;
   return {
+    url: url,
     id: baseInfo.id,
     name: baseInfo.name[0].toUpperCase() + baseInfo.name.slice(1),
     genera: speciesInfo.genera[2].genus,
@@ -41,6 +42,6 @@ export class APIService {
   static async getPokemonInfo(url) {
     const baseInfo = await makeRequest(url, 'GET');
     const speciesInfo = await makeRequest(baseInfo.species.url, 'GET');
-    return buildPokemonInfoObject(baseInfo, speciesInfo);
+    return buildPokemonInfoObject(baseInfo, speciesInfo, url);
   }
 }

@@ -8,7 +8,11 @@ const initialState = {
   fetchingPokemon: false,
   selectedPokemon: {},
   visibleSection: 'pokemonInfo',
-  likedPokemon: []  
+  likedPokemon: [{
+    id: 12,
+    url: 'https://pokeapi.co/api/v2/pokemon/12/',
+    name: 'Butterfree'
+  }]  
 }
 
 const pokemonReducers = (state = initialState, action) => {
@@ -31,6 +35,10 @@ const pokemonReducers = (state = initialState, action) => {
       return {...state, visibleSection: 'pokemonInfo'}
     case 'SHOW_BULBAPEDIA_SECTION':
       return {...state, visibleSection: 'bulbapediaSection'}
+    case 'LIKE_POKEMON':
+      return {...state, likedPokemon: [...state.likedPokemon, action.pokemon]}
+    case 'UPDATE_FAVORITES':
+      return {...state, likedPokemon: action.newList}
     default:
       return state;
   }

@@ -13,7 +13,6 @@ class Store {
         if (err) {
           reject(err);
         }
-
         resolve('done!')
       });
 

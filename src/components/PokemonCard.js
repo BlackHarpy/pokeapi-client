@@ -2,15 +2,12 @@ import React from 'react';
 import { connect } from 'react-redux'
 
 import anime from 'animejs'
-const {ipcRenderer} = window.require('electron');
 
-import { showBulbapediaSection } from '../actions'
-
+import { showBulbapediaSection, saveFavorites } from '../actions'
 
 import {Card, CardActions, CardMedia, CardHeader, CardText} from 'material-ui/Card';
 import Divider from 'material-ui/Divider';
 import Favorite from 'material-ui/svg-icons/action/favorite';
-
 
 import {TypeBox} from './TypeBox'
 import {StatsBox} from './StatsBox'
@@ -61,13 +58,9 @@ const cardTextStyle = {
   }
 }
 
-const loveIcon = {
-  height: 30,
-  width: 30,
-}
-
 function mapStateToProps(state) {
   return {
+    likedPokemon: state.likedPokemon
   }
 }
 
@@ -76,6 +69,9 @@ function mapDispatchToProps(dispatch) {
   return {
     showBulbapediaSection: () => {
       dispatch(showBulbapediaSection())
+    },
+    saveFavorites: (newList) => {
+      dispatch(saveFavorites(newList))      
     }
   }
 }
@@ -97,36 +93,41 @@ function buildCardIconButton(link, usingElectron, showBulbapediaSection) {
   )
 }
 
-function buildFavoriteIcon() {
+function buildFavoriteIcon(pokemontListItem, favorite, saveFavorites, likedPokemon) {
+  const loveIcon = {
+    height: 30,
+    width: 30,
+    color:  favorite ? '#dc181e' : '#9e9e9e'
+  }
+
+  const onClick = (e) => {
+    e.preventDefault()
+    handleClick(pokemontListItem, favorite, saveFavorites, likedPokemon)
+  }
+
   return <div className="love-icon" style={{ display: 'flex', alignItems: 'center' }}>
-          <Favorite className="heart" style={loveIcon}  onClick={clickTest}/>
+          <Favorite className="heart" style={loveIcon}  onClick={onClick}/>
         </div>
 }
 
-function clickTest () {
-  const heartAnimation = anime({
+function animateHeart(favorite) {
+  anime({
     targets: '.heart',
     scale: [0, 1],
-    color: 'rgb(255, 0, 0)',
+    color:  favorite ? '#9e9e9e' : '#dc181e',
     easing: 'linear',
     duration: 200,
-  })
-
-  const json = [{
-    id: 1,
-    name: 'pikachu'
-  }, {
-    id: 2,
-    name: 'raichu'
-  }]
-  
-  ipcRenderer.on('save-favorite-result', (event, arg) => {
-    console.log(arg) // prints "pong"
-  })
-  ipcRenderer.send('save-favorite', json)
+  });
 }
 
-const Container = ({data, usingElectron, showBulbapediaSection}) => (
+function handleClick (item, favorite, saveFavorites, oldList) {
+  let newList = [];  
+  animateHeart(favorite);
+  favorite ? newList = oldList.filter(pokemon => pokemon.id !== item.id) : newList = [...oldList, item];
+  saveFavorites(newList);
+}
+
+const Container = ({data, usingElectron, showBulbapediaSection, favorite, likedPokemon, saveFavorites}) => (
   <Card>
     <CardHeader
       title={`${data.id} - ${data.name}`}
@@ -137,8 +138,10 @@ const Container = ({data, usingElectron, showBulbapediaSection}) => (
       subtitleStyle={cardHeaderStyle.subtitle}
     > 
     <div style={{ float: 'right', display: 'flex' }}>
-    { buildCardIconButton(data.bulbapediaArtiscle, usingElectron, showBulbapediaSection) }
-    { buildFavoriteIcon () }
+    { buildCardIconButton(data.bulbapediaArticle, usingElectron, showBulbapediaSection) }
+    { usingElectron ? 
+      buildFavoriteIcon({id: data.id, url: data.url, name: data.name}, favorite, saveFavorites, likedPokemon) :
+      null }
     </div>
     
     </CardHeader>
@@ -146,9 +149,10 @@ const Container = ({data, usingElectron, showBulbapediaSection}) => (
       <div>
        <img src={data.sprite.front} style={cardMediaStyle.img} />
       <img src={data.sprite.back} style={cardMediaStyle.img} /> 
+      
       </div>
     </CardMedia>
-    <CardText style={cardTextStyle.size}>
+    <CardText style={cardTextStyle.size}>    
       HT : {(data.height / 10).toFixed(1)}m - WT : {(data.weight / 10).toFixed(1)}kg
     </CardText>
     <CardActions style={cardActionsStyle.general}>
