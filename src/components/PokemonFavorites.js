@@ -20,14 +20,6 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-function spinner(fetching) {
-  if (fetching) {
-    return <MenuItem key={'spinner'} style={{ textAlign: 'center' }}>
-      <MDSpinner />
-    </MenuItem>
-  }
-}
-
 function listfavoritePokemons(favoritePokemon, handleClick) {
   if (favoritePokemon.length) {
     return favoritePokemon.map((pokemon, index) => {

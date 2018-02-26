@@ -88,7 +88,7 @@ function buildCardIconButton(link, usingElectron, showBulbapediaSection) {
     <CardIconButton 
     link={link} 
     buttonConfig={buttonConfig}
-    electronConfig={usingElectron ? { onClick: showBulbapediaSection } : undefined}
+    electronConfig={usingElectron ? { onClick: showBulbapediaSection } : null}
     />
   )
 }
