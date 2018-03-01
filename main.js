@@ -9,14 +9,6 @@ const url = require('url')
 let tray = null
 let mainWindow
 
-const { default: installExtension, REDUX_DEVTOOLS } = require('electron-devtools-installer');
-
-function installDevExtensions() {
-  installExtension(REDUX_DEVTOOLS)
-    .then((name) => console.log(`Added Extension:  ${name}`))
-    .catch((err) => console.log('An error occurred: ', err));
-}
-
 function setTray() {
   // tray = new Tray('public/assets/60px-Bulbapedia_bulb.png')
   //   const contextMenu = Menu.buildFromTemplate([
@@ -27,7 +19,6 @@ function setTray() {
 }
 function createWindow() {
 
-  installDevExtensions();
   mainWindow = new BrowserWindow({show: false})
 
   mainWindow.loadURL(url.format({

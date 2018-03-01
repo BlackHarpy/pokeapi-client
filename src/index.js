@@ -13,7 +13,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { IpcService } from './services/IpcService'
 
 let store = createStore(pokemonReducers,
-  compose(applyMiddleware(thunk), window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()));
+  compose(applyMiddleware(thunk)));
 
 function checkElectron() {
   const userAgent = navigator.userAgent.toLowerCase()
