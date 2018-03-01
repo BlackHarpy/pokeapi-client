@@ -42,7 +42,8 @@ async function saveFile(event, content) {
   try {
     response = await StoreService.saveFile(content);
   } catch(e) {
-    console.log('error retrieving favorites')
+    response = [];
+    console.log('error saving favorites')
   } finally {
     event.sender.send('save-favorite-result', response)  
   }
@@ -53,6 +54,7 @@ async function getFavorites(event) {
   try {
     list = await StoreService.readFile();
   } catch(e) {
+    list = []
     console.log('error retrieving favorites')
   } finally {
     event.sender.send('load-favorites-result', list);

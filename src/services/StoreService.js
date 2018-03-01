@@ -10,10 +10,7 @@ class Store {
       const stringContent = JSON.stringify(content)
 
       fs.writeFile(filePath, stringContent, function (err) {
-        if (err) {
-          reject(err);
-        }
-        resolve('done!')
+        err ? reject(err) :  resolve('done!')
       });
 
     })
@@ -23,11 +20,8 @@ class Store {
     return new Promise((resolve, reject) => {
       const userDataPath = (electron.app || electron.remote.app).getPath('userData');
       const filePath = path.join(userDataPath, 'favorites.json');
-      fs.readFile(filePath, 'utf8', function (err, contents) {
-        if (err) {
-          reject(err);
-        }
-        resolve(JSON.parse(contents));
+      fs.readFile(filePath, function (err, contents) {
+        err ?  reject(err) : resolve(JSON.parse(contents));
       });
     })
   }
