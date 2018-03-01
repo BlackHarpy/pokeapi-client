@@ -8,7 +8,9 @@
     "watch": "webpack --watch --config webpack.config",
     "test": "jest --verbose",
     "start": "electron .",
-    "dist": "build"
+    "dist": "build",
+    "dist-mac": "build --mac",
+    "dist-linux": "build --linux"
   },
   "repository": {
     "type": "git",
@@ -16,6 +18,7 @@
   },
   "author": "Maria C",
   "license": "ISC",
+  "email": "mariacastro87@gmail.com",
   "bugs": {
     "url": "https://github.com/BlackHarpy/pokeapi-client/issues"
   },
@@ -28,7 +31,8 @@
     "react-md-spinner": "^0.2.5",
     "react-redux": "^5.0.6",
     "redux": "^3.7.2",
-    "redux-thunk": "^2.2.0"
+    "redux-thunk": "^2.2.0",
+    "electron-devtools-installer": "^2.2.3"    
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
@@ -40,7 +44,6 @@
     "babel-preset-stage-3": "^6.24.1",
     "electron": "^1.8.2",
     "electron-builder": "^20.0.7",
-    "electron-devtools-installer": "^2.2.3",
     "enzyme": "^3.2.0",
     "enzyme-adapter-react-16": "^1.1.1",
     "fetch-mock": "^6.0.0",
@@ -50,10 +53,25 @@
     "webpack": "^3.10.0"
   },
   "build": {
-    "appId": "my.app.test",
+    "appId": "pokeapi.client",
+    "dmg": {
+      "contents": [{
+          "x": 110,
+          "y": 150
+        },{
+          "x": 240,
+          "y": 150,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
+    },
     "win": {
-      "target": "nsis",
-      "icon": ""
+      "target": "portable",
+      "icon": "build/psyduck.png"
+    },
+    "linux": {
+      "target":  "AppImage"
     }
   }
 }
