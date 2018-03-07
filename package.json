@@ -53,7 +53,7 @@
   },
   "build": {
     "appId": "pokeapi.client",
-    "icon": "build/icon.256x256.png",
+    "icon": "build/icon.512x512.png",
     "dmg": {
       "contents": [
         {
