@@ -74,7 +74,7 @@
     },
     "linux": {
       "target": "AppImage",
-      "icon": "build/icon.256x256.png"
+      "icon": "build/icon.512x512.png"
     }
   }
 }

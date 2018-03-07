@@ -1,38 +1,45 @@
-const electron = require('electron')
-const { Menu, Notification, Tray, dialog, ipcMain } = require('electron')
-const app = electron.app
-const BrowserWindow = electron.BrowserWindow
+const electron = require('electron');
+const { Menu, Notification, Tray, ipcMain } = require('electron');
+const app = electron.app;
+const BrowserWindow = electron.BrowserWindow;
 
-const path = require('path')
-const url = require('url')
+const path = require('path');
+const url = require('url');
 
-const StoreService = require('./src/services/StoreService')
-const FileCacheService = require('./src/services/FileCacheService')
+const StoreService = require('./src/services/StoreService');
+const FileCacheService = require('./src/services/FileCacheService');
 
-let tray = null
-let mainWindow
+let tray = null;
+let mainWindow;
 
+function showNotification(text) {
+  const message = new Notification({
+    title: "Action status",
+    body: text
+  });
+  message.show();
+}
 function setTray() {
-  // tray = new Tray('public/assets/60px-Bulbapedia_bulb.png')
-  //   const contextMenu = Menu.buildFromTemplate([
-  //     {role: 'quit'},
-  //   ])
-  //   tray.setToolTip('Pokédex')
-  //   tray.setContextMenu(contextMenu)
+  tray = new Tray('public/assets/60px-Bulbapedia_bulb.png')
+    const contextMenu = Menu.buildFromTemplate([
+      {role: 'quit'},
+    ]);
+    tray.setToolTip('Pokédex');
+    tray.setContextMenu(contextMenu)
 }
 function createWindow() {
-
-  mainWindow = new BrowserWindow({show: false})
+  setTray();
+  mainWindow = new BrowserWindow({show: false});
 
   mainWindow.loadURL(url.format({
     pathname: path.join(__dirname, 'index.html'),
     protocol: 'file:',
     slashes: true
-  }))
+  }));
 
   mainWindow.once('ready-to-show', () => {
     mainWindow.show()
-  })
+  });
 
   mainWindow.on('closed', function () {
     mainWindow = null
@@ -48,6 +55,7 @@ async function saveFile(event, content) {
     response = [];
     console.log('error saving favorites')
   } finally {
+    showNotification('Favorites updated!');
     event.sender.send('save-favorite-result', response)  
   }
 } 
