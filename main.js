@@ -19,16 +19,8 @@ function showNotification(text) {
   });
   message.show();
 }
-function setTray() {
-  tray = new Tray('public/assets/60px-Bulbapedia_bulb.png')
-    const contextMenu = Menu.buildFromTemplate([
-      {role: 'quit'},
-    ]);
-    tray.setToolTip('Pokédex');
-    tray.setContextMenu(contextMenu)
-}
+
 function createWindow() {
-  setTray();
   mainWindow = new BrowserWindow({show: false});
 
   mainWindow.loadURL(url.format({
@@ -53,6 +45,7 @@ async function saveFile(event, content) {
     response = await StoreService.saveFile(content);
   } catch(e) {
     response = [];
+    showNotification('error saving favorites');
     console.log('error saving favorites')
   } finally {
     showNotification('Favorites updated!');
