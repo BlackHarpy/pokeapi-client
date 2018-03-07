@@ -19,4 +19,24 @@ export class IpcService {
       ipcRenderer.send('load-favorites')
     })
   }
+  static sendUpdateCacheMessage(content) {
+    return new Promise ((resolve, reject) => {
+      const {ipcRenderer} = window.require('electron');
+      ipcRenderer.once('update-cache-result', (event, arg) => {
+        console.log(arg);
+        resolve('saved');
+      })
+      ipcRenderer.send('update-cache', content)
+    })  
+  }
+
+  static sendLoadFromCacheMessage(url) {
+    return new Promise ((resolve, reject) => {
+      const {ipcRenderer} = window.require('electron');
+      ipcRenderer.once('load-cache-result', (event, cachedData) => {
+        resolve(cachedData);
+      })
+      ipcRenderer.send('load-cache', url)
+    })
+  }
 }

@@ -1,6 +1,25 @@
 'use strict';
 
-async function makeRequest (url, method = {}) {
+import { IpcService } from './IpcService'
+
+function updateCache(url, data) {
+  const userAgent = navigator.userAgent.toLowerCase()
+  const usingElectron = userAgent.indexOf(' electron/') > -1;
+  if (usingElectron) {
+    IpcService.sendUpdateCacheMessage({ url, data })
+  }
+}
+
+async function loadCache(url) {
+  const userAgent = navigator.userAgent.toLowerCase()
+  const usingElectron = userAgent.indexOf(' electron/') > -1;
+  if (usingElectron) {
+    return await IpcService.sendLoadFromCacheMessage(url)
+  }
+  return null;
+}
+
+async function makeRequest(url, method = {}) {
   const request = new Request(url, {
     method: method
   });
@@ -8,7 +27,7 @@ async function makeRequest (url, method = {}) {
 };
 
 function buildPokemonInfoObject(baseInfo, speciesInfo, url) {
-  const enFlavorText = speciesInfo.flavor_text_entries.find(entry => {return entry.language.name === 'en'}).flavor_text;
+  const enFlavorText = speciesInfo.flavor_text_entries.find(entry => { return entry.language.name === 'en' }).flavor_text;
   return {
     url: url,
     id: baseInfo.id,
@@ -29,19 +48,29 @@ function buildPokemonInfoObject(baseInfo, speciesInfo, url) {
       ATTACK: baseInfo.stats[4].base_stat,
       HP: baseInfo.stats[5].base_stat
     },
-    types: baseInfo.types.map(record => { return record.type.name}),
+    types: baseInfo.types.map(record => { return record.type.name }),
     bulbapediaArticle: `https://bulbapedia.bulbagarden.net/wiki/${baseInfo.name}_(Pokemon)`
   }
 }
 
 export class APIService {
-  static getPokemonList(url) {
-    return makeRequest(url, 'GET');
+  static async getPokemonList(url) {
+    let data = await loadCache(url);
+    if (!data) {
+      data = await makeRequest(url, 'GET');
+      updateCache(url, data);
+    }
+    return data;
   }
 
   static async getPokemonInfo(url) {
-    const baseInfo = await makeRequest(url, 'GET');
-    const speciesInfo = await makeRequest(baseInfo.species.url, 'GET');
-    return buildPokemonInfoObject(baseInfo, speciesInfo, url);
+    let pokemon = await loadCache(url);
+    if (!pokemon) {
+      const baseInfo = await makeRequest(url, 'GET');
+      const speciesInfo = await makeRequest(baseInfo.species.url, 'GET');
+      pokemon = buildPokemonInfoObject(baseInfo, speciesInfo, url);
+      updateCache(url, pokemon);
+    }
+    return pokemon
   }
 }

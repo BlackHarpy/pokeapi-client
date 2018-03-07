@@ -1,11 +1,14 @@
 const electron = require('electron')
 const { Menu, Notification, Tray, dialog, ipcMain } = require('electron')
-const StoreService = require('./src/services/StoreService')
 const app = electron.app
 const BrowserWindow = electron.BrowserWindow
 
 const path = require('path')
 const url = require('url')
+
+const StoreService = require('./src/services/StoreService')
+const FileCacheService = require('./src/services/FileCacheService')
+
 let tray = null
 let mainWindow
 
@@ -61,8 +64,34 @@ async function getFavorites(event) {
   }
 }
 
+async function updateCache(event, content) {
+  let response = [];
+  try {
+    response = await FileCacheService.updateCache(content.url, content.data);
+  } catch(e) {
+    response = [];
+    console.log('error saving cache')
+  } finally {
+    event.sender.send('save-cache-result', 'cache updated!')  
+  }
+}
+
+async function loadFromCache(event, url) {
+  let response = null;
+  try {
+    response = await FileCacheService.loadFromCache(url);
+  } catch(e) {
+    response = null;
+    console.log('error loading from cache')
+  } finally {
+    event.sender.send('load-cache-result', response)  
+  }
+}
+
 ipcMain.on('save-favorite', saveFile)
 ipcMain.on('load-favorites', getFavorites)
+ipcMain.on('update-cache', updateCache)
+ipcMain.on('load-cache', loadFromCache)
 
 app.on('ready', createWindow)
 
