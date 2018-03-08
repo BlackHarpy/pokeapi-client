@@ -9,7 +9,6 @@ const url = require('url');
 const StoreService = require('./src/services/StoreService');
 const FileCacheService = require('./src/services/FileCacheService');
 
-let tray = null;
 let mainWindow;
 
 function showNotification(text) {
@@ -73,7 +72,7 @@ async function updateCache(event, content) {
     response = [];
     console.log('error saving cache')
   } finally {
-    event.sender.send('save-cache-result', 'cache updated!')  
+    event.sender.send('save-cache-result', response)
   }
 }
 
@@ -83,7 +82,6 @@ async function loadFromCache(event, url) {
     response = await FileCacheService.loadFromCache(url);
   } catch(e) {
     response = null;
-    console.log('error loading from cache')
   } finally {
     event.sender.send('load-cache-result', response)  
   }
